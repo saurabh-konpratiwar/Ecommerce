@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>ishopify.in</title>
+      <style>
+          .col-xs-3{
+           display: inline-block;
+           margin-left:4px;
+           margin-top:4px;
+          }
+
+#clearcart:hover .tooltiptext{
+   visibility: visible;
+
+
+}  
+.tooltiptext{
+  visibility: hidden;
+
+} 
+ 
+
+.slider1{
+
+background-size:100% 100%;
+
+
+}
+.carousel-control-prev{
+top: unset;
+bottom: unset;
+
+}
+.carousel-control-next{
+
+top: unset;
+bottom: unset;
+}
+.carousel-control-next-icon{
+background-color:blue;
+}
+.carousel-control-prev-icon{
+background-color:blue;
+}
+.nvclear{
+  background-color: unset;
+  border-color: #28a745;
+  margin-left:4px; 
+}
+.signin{
+   background-color: unset;
+  border-color: #28a745;
+  margin-left:4px; 
+}
+.div1{/* main heading div */
+  margin-top:4;
+  
+  height: 100px;
+  width: 100%;
+  background-color:#002e6e ;
+  text-align:center;
+ 
+}
+
+.search{
+  color: white;
+}
+.search:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+.nav-item:hover{
+  color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+    border-radius: 5px;
+}
+.nav-item:active{
+  color: white;
+   background-color: transparent;
+  text-decoration: underline;
+}
+
+.navbar-nav:visited {
+  color: #fff;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+</style>
+
+
+
+  </head>
+  <body>
+
+<div class="div1" >
+
+    <h1 class="ml-0" style="text-align:center; color: white; margin-bottom:0px; margin-top: 0px; margin-left: 0px; ">
+     ishopify.in
+    </h1>
+    <h7 style="color: white;">Right way to go</h7>
+
+
+</div>
+
+
+
+
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  Category
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    {% for cat in cats %}
+
+        <a class="dropdown-item" href="/shop/showcatprod/{{cat}}">{{cat}}</a>
+    {% endfor %}
+
+  </div>
+</div>
+
+  <a class="navbar-brand" href="/shop/">ishopify.in</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/shop/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/shop/about">About Us</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/shop/contact">Contact</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/shop/tracker">Tracker</a>
+      </li>
+
+        <li class="nav-item">
+        <a class="nav-link" href="/shop/checkout">CheckOut</a>
+      </li>
+
+    </ul>
+    <form class="form-inline my-2 my-lg-0" action="/shop/search" method="get">
+      <input style="width:200px; border-radius:0px; line-height: 1.7" class="form-control " id="search" name="search" type="search" placeholder="Search">
+      <button class="btn btn-primary search mr-4" style="line-height: 1.7; border-top-left-radius:0px; border-bottom-left-radius:0px; " type="submit">&#128269;</button>
+
+    </form>
+    
+
+
+
+<div>
+
+      <button type="button"  data-html="true" id="popcart" class='btn btn-primary nvclear' data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+sagittis lacus vel augue laoreet rutrum faucibus.">Cart(<span id="cart">0</span>)
+</button><button class='btn btn-primary nvclear mr-2' id='clearcart' onclick='clearCart();' title="Remove your all cart item">&#128465;</button>
+
+
+
+
+
+  </div>
+  </div>
+</div>
+</nav>
+
+{% if user.is_authenticated %}
+<script>
+  document.getElementById('homesignin').innerHTML = '<div id="homesignin"><b><span class="mx-2" style="color:white; font-size: 14px;  font-family:Comic Sans MS; text-transform:capitalize; text-shadow:4px 4px 8px rgb(40, 167, 69);;">welcome {{request.user}}</span></b><button type="button" class="btn btn-primary signin " data-toggle="modal" data-target="#staticBackdrop">Log out</button></div><!-- Modal --><div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="staticBackdropLabel">ishopify.in</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><form action="/shop/logout" class="mt-2" method="POST">{% csrf_token %}<button type="submit" class="btn btn-primary">Log out</button></form></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div></div><div>' 
+
+</script> 
+{% else %} 
+<script> </script>
+{% endif %} 
+
+
+{%block body%}{%endblock%}
+
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+			  src="https://code.jquery.com/jquery-3.5.1.js"
+			  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+			  crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v7.0"></script>
+
+
+
+ {%block js%} {%endblock%}
+
+  </body>
+</html>

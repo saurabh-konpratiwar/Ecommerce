@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>ishopify.in</title>
+      <style>
+          .col-xs-3{
+           display: inline-block;
+           margin-left:4px;
+           margin-top:4px;
+          }
+
+#clearcart:hover .tooltiptext{
+   visibility: visible;
+
+
+}  
+.tooltiptext{
+  visibility: hidden;
+
+} 
+ 
+
+.slider1{
+
+background-size:100% 100%;
+
+
+}
+.carousel-control-prev{
+top: unset;
+bottom: unset;
+
+}
+.carousel-control-next{
+
+top: unset;
+bottom: unset;
+}
+.carousel-control-next-icon{
+background-color:blue;
+}
+.carousel-control-prev-icon{
+background-color:blue;
+}
+.nvclear{
+  background-color: unset;
+  border-color: #28a745;
+  margin-left:4px; 
+}
+.signin{
+   background-color: unset;
+  border-color: #28a745;
+  margin-left:4px; 
+}
+.div1{/* main heading div */
+  margin-top:4;
+  
+  height: 100px;
+  width: 100%;
+  background-color:#002e6e ;
+  text-align:center;
+ 
+}
+
+.search{
+  color: white;
+}
+.search:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+.nav-item:hover{
+  color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+    border-radius: 5px;
+}
+.nav-item:active{
+  color: white;
+   background-color: transparent;
+  text-decoration: underline;
+}
+
+.navbar-nav:visited {
+  color: #fff;
+  background-color: transparent;
+  text-decoration: none;
+}
+.card{
+  height: 300px;
+  width: 300px;
+
+
+}
+.card-img-top{
+  width: 300px;
+  height: 245px;
+}
+</style>
+
+
+
+  </head>
+  <body>
+
+<div class="div1" >
+
+    <h1 class="ml-0" style="text-align:center; color: white; margin-bottom:0px; margin-top: 0px; margin-left: 0px; ">
+     ishopify.in
+    </h1>
+    <h7 style="color: white;">Right way to go</h7>
+
+
+</div>
+
+
+
+
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  Category
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    {% for cat in cats %}
+
+        <a class="dropdown-item" href="/shop/showcatprod/{{cat}}">{{cat}}</a>
+    {% endfor %}
+
+  </div>
+</div>
+
+  <a class="navbar-brand" href="/shop/">ishopify.in</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/shop/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/shop/about">About Us</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/shop/contact">Contact</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/shop/tracker">Tracker</a>
+      </li>
+
+        <li class="nav-item">
+        <a class="nav-link" href="/shop/checkout">CheckOut</a>
+      </li>
+
+    </ul>
+    <form class="form-inline my-2 my-lg-0" action="/shop/search" method="get">
+       <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+ SELECT PRICE
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+
+        <input class="ml-2" type="radio" id="checkbox1" value="999" name="checkbox"><strong> below 1000</strong><br>
+        <input class="ml-2" type="radio" id="checkbox2"  value="1000" name="checkbox"><strong> above 1000</strong><br>
+        <input class="ml-2" type="radio" id="checkbox3"  value="3000" name="checkbox"><strong> above 3000</strong><br>
+        <input class="ml-2" type="radio" id="checkbox4"  value="5000" name="checkbox"><strong> above 5000</strong><br>
+
+
+
+  </div>
+</div>
+      <input style="width:200px; border-radius:0px; line-height: 1.7" class="form-control " id="search" name="search" type="search" placeholder="Search">
+      <button class="btn btn-primary search mr-4" style="line-height: 1.7; border-top-left-radius:0px; border-bottom-left-radius:0px; " type="submit">&#128269;</button>
+
+    </form>
+    
+
+
+
+
+<div>
+
+      <button type="button"  data-html="true" id="popcart" class='btn btn-primary nvclear' data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+sagittis lacus vel augue laoreet rutrum faucibus.">Cart(<span id="cart">0</span>)
+</button><button class='btn btn-primary nvclear mr-2' id='clearcart' onclick='clearCart();' title="Remove your all cart item">&#128465;</button>
+
+
+
+
+
+  </div>
+  </div>
+</div>
+</nav>
+
+
+
+
+
+<div >
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner ">
+    {% for adv in advertise %}
+    {% if forloop.counter == 1 %}
+    <div class="carousel-item active ">
+        <img src="/media/{{adv.img}}" width="100%" height="400px" class="d-block w-100" alt="...">
+   </div>
+   {% else %}
+    <div class="carousel-item">
+        <img src="/media/{{adv.img}}" width="100%" height="400px" class="d-block w-100" alt="...">
+   </div>
+  {% endif %}
+    {% endfor %}
+ </div>
+  </div>
+</div>
+</div>
+
+
+{%block body%}
+
+<hr>
+ <h2><b>Most Recommended Products:</b></h2>
+ <hr>
+
+{% for prod,range,nslide in allprods %}
+<hr>
+    <h1>{{prod.0.category}}</h1>
+ <hr>
+   
+
+                                {% for i in prod %}
+                                <div class="card col-xs-3 mx-4 my-4">
+                                <img src='/media/{{i.image}}' id="imgpr{{i.id}}" class="card-img-top" alt="..." >
+                                <div class="card-body">
+                                    <h5 class="card-title" id="namepr{{i.id}}">{{i.product_name}}</h5>
+                                    <p class="card-text">{{i.desc|slice:":20"}}...</p>
+                                    <font class="card-text"><b>Price:</b> <span id="pricepr{{i.id}}">{{i.price}}</span></font><br>
+                                    <div class="row my-2">
+                                        <span id="divpr{{i.id}}" class="divpr">
+                                            <button  id="pr{{i.id}}" class="btn btn-primary Cart mr-2">Add To Cart</button></span>
+                                    <a href="/shop/products/{{i.id}}"> <button  id="qv{{i.id}}" class="btn btn-primary Cart ">Quick View</button></a>
+                                     </div>
+                                    </div>
+                                 </div>
+
+                            
+                                {% endfor %}
+
+                             
+
+
+{% endfor %}
+
+
+{{catsprod}}
+
+
+{%endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- this is load static files
+    {% load static %}
+    <a href="{%static 'shop/mystatic.txt'%}">click me </a> -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v7.0"></script>
+ 
+{%block js%}
+<script>
+ console.log("working");
+
+//find out the cart from localstorage
+ if(localStorage.getItem('Cart') == null)
+ {
+     var Cart = {};
+     console.log("var cart is created");
+ }
+ else
+ {
+
+ Cart = JSON.parse(localStorage.getItem('Cart'));
+
+ updateCart(Cart);
+ updatePopover(Cart);
+ }
+
+//if the add to cart button click increament the item
+
+ $(".divpr").on('click','button.Cart',function(){
+ console.log("clicked",this.id)
+ var idstr = this.id.toString();
+ console.log(":",idstr);
+
+ if(Cart[idstr] != undefined)
+ {
+ Cart[idstr] = Cart[idstr][0] + 1
+ console.log("true",Cart[idstr]);
+ }
+ else{
+ var qty;
+ name = document.getElementById('name' + idstr).innerHTML;
+ price = document.getElementById('price' + idstr).innerHTML;
+ Cart[idstr] = [qty,name,price];
+ Cart[idstr][0] = 1;
+ console.log(Cart);
+ console.log("false");
+ }
+ updateCart(Cart);
+ updatePopover(Cart);
+ localStorage.setItem('Cart',JSON.stringify(Cart));
+ })
+
+
+
+
+
+
+$('#popcart').popover();
+
+
+updatePopover(Cart);
+function updatePopover(Cart)
+{
+    console.log('We are inside updatePopover');
+    var popStr = "";
+    popStr = popStr + "<h5> Cart for your items in my shopping cart </h5><div class='mx-2 my-2'>";
+    console.log(popStr);
+
+    var i = 1;
+    for (var item in Cart) {
+        popStr = popStr + "<b>" + i + "</b>. ";
+        console.log(popStr);
+
+        popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 19) + "... Qty: " + Cart[item][0] + '<br>';
+        i = i + 1;
+    }
+    popStr = popStr + "</div><a  href='/shop/checkout' class='btn btn-primary mx-2 my-2' id ='checkout' style='color:black; background-color:light-blue; '>CHECKOUT</a>" ;
+
+    console.log(popStr);
+
+
+    document.getElementById('popcart').setAttribute('data-content', popStr);
+    $('#popcart').popover();
+};
+
+function clearCart()
+{
+     
+  console.log("clear cart")
+  Cart = JSON.parse(localStorage.getItem("Cart"));
+ for(var item in Cart)
+ {
+  document.getElementById('div'+item).innerHTML = " <button  id= "+ item +" class='btn btn-primary Cart mr-2'>Add To Cart</button>"; 
+ }
+localStorage.clear()
+Cart = {}
+updateCart(Cart);
+updatePopover(Cart);
+  // body...
+};
+
+
+
+
+
+
+
+
+
+
+function updateCart(Cart)
+{
+var sum = 0;
+console.log("Cart",Cart)
+for(var item in Cart)
+{
+sum = sum + Cart[item][0];
+document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button><span id='val" + item + "'> " + Cart[item][0] + " </span><button id='plus" + item + "' class='btn btn-primary plus'>+</button>";
+}
+document.getElementById("cart").innerHTML = sum;
+localStorage.setItem('Cart',JSON.stringify(Cart));
+}
+
+
+
+$('.divpr').on("click", "button.minus", function() {
+    a = this.id.slice(7, );
+    Cart['pr' + a][0] = Cart['pr' + a][0] - 1;
+    Cart['pr' + a][0] = Math.max(0, Cart['pr' + a][0]);
+    if(Cart['pr' + a][0] == 0)
+    {
+    
+    document.getElementById('divpr' + a).innerHTML = '<button id="pr'+ a +'"  class="btn btn-primary Cart mr-2">Add To Cart</button>'
+    delete Cart['pr' + a];
+    
+    updateCart(Cart);
+    updatePopover(Cart);
+    }
+    else
+    {
+    document.getElementById('valpr' + a).innerHTML = Cart['pr' + a][0];
+    updateCart(Cart);
+    updatePopover(Cart)
+    }
+});
+
+
+$('.divpr').on("click", "button.plus", function() {
+    a = this.id.slice(6, );
+    Cart['pr' + a][0] = Cart['pr' + a][0] + 1;
+    document.getElementById('valpr' + a).innerHTML = Cart['pr' + a][0];
+    updateCart(Cart);
+    updatePopover(Cart);
+
+});
+
+
+ </script>
+ {%endblock%}
+  </body>
+</html>

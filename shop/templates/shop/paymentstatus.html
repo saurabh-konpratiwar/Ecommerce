@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Payment status regarding your order</h1>
+{{respons_dict}}
+<script>
+{% if Thank %}
+alert('Thanks for ordering with us. Your order no is {{respons_dict.ORDERID}}. Use it to track your order using our order tracker');
+localStorage.clear();
+document.location = "/shop";
+{% endif %}
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+
+{%extends 'shop/index.html'%}
+
+ {%block body%}<div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3">ishopify.in</h1>
+      <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Heading</h2>
+        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div>
+      <div class="col-md-4">
+        <h2>Heading</h2>
+        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div>
+      <div class="col-md-4">
+        <h2>Heading</h2>
+        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+      </div>
+    </div>
+
+    <hr>
+
+  </div> <!-- /container -->{%endblock%}
+
+{%block js%}
+  <script>
+  cartno();
+function cartno()
+{
+ Cart = JSON.parse(localStorage.getItem('Cart'))
+ console.log(Cart);
+ updatePopover(Cart);
+ if(jQuery.isEmptyObject(Cart)){
+ var sum = 0;
+ document.getElementById("cart").innerHTML = sum;
+ updatePopover(Cart);
+ }
+ else{
+    var sum = 0;
+    updatePopover(Cart);
+  for(var item in Cart){
+        let qty = Cart[item][0];
+        sum = sum + Cart[item][0] 
+        document.getElementById("cart").innerHTML = sum;
+      
+    }
+    }
+ }
+
+$('#popcart').popover();
+function updatePopover(Cart)
+{
+    console.log('We are inside updatePopover');
+    var popStr = "";
+    popStr = popStr + "<h5> Cart for your items in my shopping cart </h5><div class='mx-2 my-2'>";
+    console.log(popStr);
+
+    var i = 1;
+    for (var item in Cart) {
+        popStr = popStr + "<b>" + i + "</b>. ";
+        console.log(popStr);
+        popStr = popStr + Cart[item][1].slice(0, 19) + "... Qty: " + Cart[item][0] + '<br>';
+        i = i + 1;
+    }
+    popStr = popStr + "</div><a  href='/shop/checkout' class='btn btn-primary mx-2 my-2' id ='checkout' style='color:black; background-color:light-blue; '>CHECKOUT</a>" ;
+
+    console.log(popStr);
+
+
+    document.getElementById('popcart').setAttribute('data-content', popStr);
+    $('#popcart').popover();
+};
+
+function clearCart()
+{
+     
+  console.log("clear cart")
+  Cart = JSON.parse(localStorage.getItem("Cart"));
+localStorage.clear()
+Cart = {}
+updatePopover(Cart);
+$('#popcart').popover('show');
+cartno();
+  // body...
+};
+
+
+
+
+ </script>
+
+{%endblock%}

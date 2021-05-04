@@ -1,0 +1,150 @@
+{%extends 'shop/basic.html'%}
+
+ {%block body%}
+<div class="container">
+    <h2>Track Your Order</h2>
+    <div class="col my-4">
+         
+            <form action="#" id="TrackerForm" method="POST">{% csrf_token %}
+            <div class="row">
+             <div class="form-group col-md-6">
+                    <label for="inporderId">Product Id</label>
+                    <input type="text" name='orderId'  class="form-control" id="orderId" placeholder="Enter Your Id" required>
+                </div>
+            <div class="form-group col-md-6">
+                <label for="inputemail">Email</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="xyz@gmail.com" required>
+            </div>
+            <button type="submit" class="btn btn-primary ml-4">Track Order</button>
+             </div>
+            </form>
+
+
+    </div>
+
+
+    <div class="col my-4">
+        <h2>Check Your Status</h2>
+        
+             <ul class="list-group" id="items">
+            
+            </ul>
+    </div>
+</div>
+{%endblock%}
+{%block js%}
+
+
+<script>
+   
+$('#TrackerForm').submit(function(event) {
+    $('#items').empty();
+    var formData = {
+        'orderId': $('input[name=orderId]').val(),
+        'email': $('input[name=email]').val(),
+        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+    };
+    $.ajax({
+            type: 'POST',
+            url: '/shop/tracker',
+            data: formData,
+            encode: true
+        })
+        .done(function(data){
+          console.log(data);
+          update = JSON.parse(data)
+          console.log(update)
+          if(update.length > 0 & update!= {})
+          {
+            for(i=0; i<update.length;i++)
+            {
+                let text = update[i]['text'];
+                let time = update[i]['time'];
+                mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${text}
+                    <span class="badge badge-primary badge-pill">${time}</span>
+                </li>`
+
+                $('#items').append(mystr);
+            }
+          }
+          else
+          {
+            mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                    Sorry </li>`
+            $('#items').append(mystr);
+          }
+
+        })
+event.preventDefault();
+});
+
+cartno();
+function cartno()
+{
+ Cart = JSON.parse(localStorage.getItem('Cart'))
+ console.log(Cart);
+ updatePopover(Cart);
+ if(jQuery.isEmptyObject(Cart)){
+ var sum = 0;
+ document.getElementById("cart").innerHTML = sum;
+ }
+ else{
+    var sum = 0;
+    var totalprice = 0;
+  for(var item in Cart){
+        let qty = Cart[item][0];
+        sum = sum + Cart[item][0] 
+        document.getElementById("cart").innerHTML = sum;
+
+    }
+    }
+ }
+
+$('#popcart').popover();
+function updatePopover(Cart)
+{
+    console.log('We are inside updatePopover');
+    var popStr = "";
+    popStr = popStr + "<h5> Cart for your items in my shopping cart </h5><div class='mx-2 my-2'>";
+    console.log(popStr);
+
+    var i = 1;
+    for (var item in Cart) {
+        popStr = popStr + "<b>" + i + "</b>. ";
+        console.log(popStr);
+        popStr = popStr + Cart[item][1].slice(0, 19) + "... Qty: " + Cart[item][0] + '<br>';
+        i = i + 1;
+    }
+    popStr = popStr + "</div><a  href='/shop/checkout' class='btn btn-primary mx-2 my-2' id ='checkout' style='color:black; background-color:light-blue; '>CHECKOUT</a>" ;
+
+    console.log(popStr);
+
+
+    document.getElementById('popcart').setAttribute('data-content', popStr);
+    $('#popcart').popover();
+};
+
+
+
+
+function clearCart()
+{
+     
+  console.log("clear cart")
+  Cart = JSON.parse(localStorage.getItem("Cart"));
+localStorage.clear()
+Cart = {}
+updatePopover(Cart);
+$('#popcart').popover('show');
+cartno();
+  // body...
+};
+
+
+
+
+
+</script>
+ {%endblock%}
+

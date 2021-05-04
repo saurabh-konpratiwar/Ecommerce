@@ -1,0 +1,32 @@
+{% extends 'shop/basic.html' %}
+{% block body%}
+<div class="container my-2 py-2"style="border:solid; width:400px">
+    <h2 style="text-align:center;">Sign up</h2>
+  <form class="mt-2" >
+  <div class="form-group">
+    <label for="exampleInputuserName">User Name</label>
+    <input type="text" class="form-control" id="userName" aria-describedby="userName" style="width:350px" required>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputMobile">Mobile No.</label>
+    <input type="tel" class="form-control" id="Mobile" aria-describedby="Mobile" style="width:350px" required>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail">Email</label>
+    <input type="email" class="form-control" id="Email" aria-describedby="Email" style="width:350px" required>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Choice Your Password</label>
+    <input type="password" class="form-control" id="pass1" style="width:350px" required>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword2">Enter Password Again</label>
+    <input type="password" class="form-control" id="pass2" style="width:350px" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary" style="margin-left:150px;">Login</button>
+</form>
+</div>
+
+ 
+{% endblock%}

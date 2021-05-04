@@ -1,0 +1,98 @@
+{%extends 'shop/basic.html'%}
+
+ {%block body%}
+<div class="container mt-2">
+  <h2>Contact us</h2><hr>
+<form action="/shop/contact" method="POST">{% csrf_token %}
+  <div class="form-group">
+    <label for="name"> Name:</label>
+    <input type="text" class="form-control" id="name" name='name' placeholder="Enter your name" required>
+
+    <label for="email"> Email:</label>
+    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+
+    <label for="phone"> Phone:</label>
+    <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your no." required>
+
+  </div>
+
+
+  <div class="form-group">
+    <label for="desc">How i Help You:</label>
+    <textarea class="form-control" id="desc" name="desc" rows="3" required></textarea>
+  </div>
+ <button type="submit" class="btn btn-success">Submit</button>
+</form>
+</div>
+{%endblock%}
+
+{%block js%}
+  <script>
+  cartno();
+function cartno()
+{
+ Cart = JSON.parse(localStorage.getItem('Cart'))
+ console.log(Cart);
+ updatePopover(Cart);
+ if(jQuery.isEmptyObject(Cart)){
+ var sum = 0;
+ document.getElementById("cart").innerHTML = sum;
+ }
+ else{
+    var sum = 0;
+    var totalprice = 0;
+  for(var item in Cart){
+        let qty = Cart[item][0];
+        sum = sum + Cart[item][0] 
+        document.getElementById("cart").innerHTML = sum;
+
+    }
+    }
+ }
+
+$('#popcart').popover();
+function updatePopover(Cart)
+{
+    console.log('We are inside updatePopover');
+    var popStr = "";
+    popStr = popStr + "<h5> Cart for your items in my shopping cart </h5><div class='mx-2 my-2'>";
+    console.log(popStr);
+
+    var i = 1;
+    for (var item in Cart) {
+        popStr = popStr + "<b>" + i + "</b>. ";
+        console.log(popStr);
+        popStr = popStr + Cart[item][1].slice(0, 19) + "... Qty: " + Cart[item][0] + '<br>';
+        i = i + 1;
+    }
+    popStr = popStr + "</div><a  href='/shop/checkout' class='btn btn-primary mx-2 my-2' id ='checkout' style='color:black; background-color:light-blue; '>CHECKOUT</a>" ;
+
+    console.log(popStr);
+
+
+    document.getElementById('popcart').setAttribute('data-content', popStr);
+    $('#popcart').popover();
+};
+ 
+function clearCart()
+{
+     
+  console.log("clear cart")
+  Cart = JSON.parse(localStorage.getItem("Cart"));
+localStorage.clear()
+Cart = {}
+updatePopover(Cart);
+$('#popcart').popover('show');
+cartno();
+  // body...
+};
+
+
+{% if Thank  %}
+alert("Your Query Is Successfully Done Our Team Will Contact You Soon");
+{% endif %}
+
+
+ </script>
+
+{%endblock%}

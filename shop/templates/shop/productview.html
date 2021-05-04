@@ -1,0 +1,91 @@
+{%extends 'shop/index.html'%}
+{%block body%}
+<div class="container">
+ <div class="row">
+      <div class="col-md-4">
+       <div class="row">
+          
+ <img src="/media/{{product.image}}" width="300px" height="385px">
+       </div>
+       <div class="row mt-2 mx-2 my-2">
+        <button  class="btn btn-primary Cart m-2x">Buy Now</button>
+        <button  class="btn btn-primary Cart mx-2">Add To Cart</button>
+      </div>
+      </div>
+      <div class="col-md-8">
+       <h1>{{product.product_name}}</h1><hr>
+       <p><b>RS. {{product.price}}</b> <div class="fb-like" data-href="http://127.0.0.1:8000/shop/{{product.id}}" data-width="" data-layout="standard" data-action="like" data-size="large" data-share="true"></div></p>
+       <p>{{product.desc}}</p>
+<div class="fb-comments" data-href="http://127.0.0.1:8000/shop/{{product.id}}" data-numposts="5" data-width=""></div>
+      </div>
+ </div>
+</div>
+{%endblock%}
+
+
+
+{%block js%}
+
+<script>
+
+ console.log("working");
+
+//find out the cart from localstorage
+var Cart = JSON.parse(localStorage.getItem('Cart'))
+console.log(Cart)
+updatePopover(Cart);
+
+ if(jQuery.isEmptyObject(Cart))
+ {
+     var Cart = {};
+     console.log("var cart is created");
+     var sum = 0;
+     document.getElementById("cart").innerHTML = sum;
+ }
+ else
+ {
+ var sum = 0;
+ for(var item in Cart)
+ {
+ sum = sum + Cart[item][0];
+ console.log(sum)
+ document.getElementById("cart").innerHTML = sum;
+
+ }
+ }
+
+
+$('#popcart').popover();
+function updatePopover(Cart)
+{
+    console.log('We are inside updatePopover');
+    var popStr = "";
+    popStr = popStr + "<h5> Cart for your items in my shopping cart </h5><div class='mx-2 my-2'>";
+    console.log(popStr);
+
+    var i = 1;
+    for (var item in Cart) {
+        popStr = popStr + "<b>" + i + "</b>. ";
+        console.log(popStr);
+        popStr = popStr + Cart[item][1].slice(0, 19) + "... Qty: " + Cart[item][0] + '<br>';
+        i = i + 1;
+    }
+    popStr = popStr + "</div><a  href='/shop/checkout' class='btn btn-primary mx-2 my-2' id ='checkout' style='color:black; background-color:light-blue; '>CHECKOUT</a>" ;
+
+    console.log(popStr);
+
+
+    document.getElementById('popcart').setAttribute('data-content', popStr);
+    $('#popcart').popover();
+};
+
+ 
+
+ </script>
+{%endblock%}
+
+
+
+
+
+

@@ -1,0 +1,159 @@
+{%extends 'shop/basic.html'%}
+{%block body%}
+<div class="container">
+    <div>
+        <h2>Step 1 - ishopify.in Express Checkout - Review Your Cart Items</h2>
+        <div>
+        <div>
+            <ul class="list-group" id="items">
+
+            </ul>
+        </div>
+        </div>
+         <font id="totalstr"></font>
+    </div>
+    <div class="col my-4">
+        <h2>Step 2 - Enter Your Delivery Address:</h2>
+        <form action="/shop/checkout" method="post">{% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="hidden" name="itemjson" id="itemjson">
+                    <input type="hidden" name="amount" id="amount">
+                    <label for="name">Name</label>
+                    <input type="name" class="form-control" name="name" id="name" placeholder="Name" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="email">Email</label>
+                    <input type="email" name='email'  class="form-control" id="email" placeholder="Email" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address1">Address</label>
+                <input type="text" name="address1" class="form-control" id="address1" placeholder="1234 Main St" required>
+            </div>
+            <div class="form-group">
+                <label for="address2">Address line 2</label>
+                <input type="text" name="address2" class="form-control" id="address2" placeholder="Apartment, studio, or floor" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="city">City</label>
+                    <input type="text" name="city" class="form-control" id="city" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="state">State</label>
+                    <input type="text" name="state" class="form-control" id="state" placeholder="Enter State" required>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="zip_code">Zip</label>
+                    <input type="text" name="zip_code" class="form-control" id="zip_code" required>
+                </div>
+            </div>
+            <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" name="phone" class="form-control" id="phone" required>
+                </div>
+            <button type="submit" class="btn btn-primary">Place Order</button>
+        </form>
+    </div>
+</div>
+{{fil}}
+{%endblock%}
+{%block js%}
+
+
+<script>
+Cart = JSON.parse(localStorage.getItem('Cart'))
+checkoutlist(Cart);
+function checkoutlist(Cart)
+{ 
+ $('#items').empty() 
+ $('#totalstr').empty()  
+ updatePopover(Cart);
+ console.log(Cart);
+ if(jQuery.isEmptyObject(Cart)){
+ mystr = `<h3 style='color:red;'>Your cart is empty !...</h3>`
+ console.log(mystr)
+ $('#items').append(mystr);
+ var sum = 0;
+ document.getElementById("cart").innerHTML = sum;
+ }
+ else{
+    $(document).ready(function(){
+    var sum = 0;
+    var totalprice = 0;
+  for(var item in Cart){
+        let name = Cart[item][1];
+        let qty = Cart[item][0];
+        let price = Cart[item][2];
+        let id = Cart[item][3];
+        var mystr2 = '';
+        totalprice =  totalprice + qty * price
+        mystr = `<li class="list-group-item d-flex justify-content-between align-items-center" >
+                   <span >&#9878; <b>${name}</b> </span><span class="badge badge-primary badge-pill">Quantity:${qty} </span></li>`
+
+        $('#items').append(mystr);
+        
+        sum = sum + Cart[item][0] 
+        document.getElementById("cart").innerHTML = sum;
+
+
+    }
+    mystr2 = `Your total price of cart item <b>Rs. ${totalprice} </b> Thank you for choosing ishopyfy.in`
+    $('#totalstr').append(mystr2)
+      $('#amount').val(totalprice);
+      })
+    }
+   
+
+    $('#itemjson').val(JSON.stringify(Cart));
+
+
+}
+
+$('#popcart').popover();
+function updatePopover(Cart)
+{
+    console.log('We are inside updatePopover');
+    var popStr = "";
+    popStr = popStr + "<h5> Cart for your items in my shopping cart </h5><div class='mx-2 my-2'>";
+    console.log(popStr);
+
+    var i = 1;
+    for (var item in Cart) {
+        popStr = popStr + "<b>" + i + "</b>. ";
+        console.log(popStr);
+        popStr = popStr + Cart[item][1].slice(0, 19) + "... Qty: " + Cart[item][0] + '<br>';
+        i = i + 1;
+    }
+    popStr = popStr + "</div>" ;
+
+    console.log(popStr);
+
+
+    document.getElementById('popcart').setAttribute('data-content', popStr);
+    $('#popcart').popover();
+};
+
+function clearCart()
+{
+
+
+  console.log("clear cart")
+  Cart = JSON.parse(localStorage.getItem("Cart"));
+localStorage.clear()
+Cart = {}
+updatePopover(Cart);
+checkoutlist(Cart);
+$('#popcart').popover('show');
+cartno();
+
+ 
+};
+
+
+</script>
+ {%endblock%}
+
+
+

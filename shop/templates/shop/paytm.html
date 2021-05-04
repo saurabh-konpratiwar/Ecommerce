@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<head>
+<title>Merchant Checkout Page</title>
+</head>
+<body>
+<center><h1>Please do not refresh this page...</h1></center>
+<form method="post" action="https://securegw-stage.paytm.in/order/process" name="paytm_form">{% csrf_token %}
+{% for key, value in param_dict.items %}
+	<input type="hidden" name="{{key}}" value="{{value}}">
+    {% endfor %}
+</form>
+<script type="text/javascript">
+document.paytm_form.submit();
+</script>
+</body>
+</html>
